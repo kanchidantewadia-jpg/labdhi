@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrate Our Love</title>
+    <title>Our Beautiful Memories</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -33,8 +33,8 @@
 
         .gallery-container {
             position: relative;
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
             margin: 0 auto;
         }
 
@@ -42,9 +42,8 @@
             position: relative;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             transform-style: preserve-3d;
-            animation: rotateGallery 30s infinite linear;
+            animation: rotateGallery 40s infinite linear;
         }
 
         .circular-gallery.paused {
@@ -61,11 +60,15 @@
             transition: all 0.5s ease;
             transform-origin: center;
             border: 5px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            top: 50%;
+            left: 50%;
+            margin: -90px 0 0 -90px;
         }
 
         .gallery-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 35px rgba(255, 105, 180, 0.9);
+            transform: scale(1.15) !important;
+            box-shadow: 0 0 35px rgba(255, 20, 147, 0.9);
             z-index: 10;
         }
 
@@ -105,13 +108,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
             overflow: hidden;
             box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
             border: 5px solid rgba(255, 255, 255, 0.2);
             z-index: 5;
+            animation: pulse 3s infinite ease-in-out;
         }
 
         .center-image img {
@@ -128,10 +132,14 @@
             text-align: center;
             color: white;
             font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-shadow: 0 0 10px rgba(255, 20, 147, 0.8);
-            opacity: 0;
+            opacity: 1;
             transition: opacity 1s ease;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
         }
 
         .controls {
@@ -168,13 +176,15 @@
 
         .title {
             position: absolute;
-            top: 50px;
+            top: 40px;
             color: white;
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 4rem;
             text-shadow: 0 0 15px rgba(255, 20, 147, 0.8);
-            opacity: 0;
-            transform: translateY(-20px);
+            opacity: 1;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
         }
 
         .hearts-container {
@@ -190,6 +200,9 @@
             width: 30px;
             height: 30px;
             opacity: 0;
+            font-size: 24px;
+            text-align: center;
+            color: #ff2d69;
         }
 
         @keyframes rotateGallery {
@@ -198,6 +211,21 @@
             }
             to {
                 transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+                box-shadow: 0 0 60px rgba(255, 20, 147, 1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
             }
         }
 
@@ -215,100 +243,108 @@
 
         @media screen and (max-width: 768px) {
             .gallery-container {
-                width: 350px;
-                height: 350px;
+                width: 400px;
+                height: 400px;
             }
             
             .gallery-item {
                 width: 120px;
                 height: 120px;
+                margin: -60px 0 0 -60px;
             }
             
             .gallery-item:nth-child(1) {
-                transform: rotate(0deg) translate(175px) rotate(0deg);
+                transform: rotate(0deg) translate(200px) rotate(0deg);
             }
 
             .gallery-item:nth-child(2) {
-                transform: rotate(72deg) translate(175px) rotate(-72deg);
+                transform: rotate(72deg) translate(200px) rotate(-72deg);
             }
 
             .gallery-item:nth-child(3) {
-                transform: rotate(144deg) translate(175px) rotate(-144deg);
+                transform: rotate(144deg) translate(200px) rotate(-144deg);
             }
 
             .gallery-item:nth-child(4) {
-                transform: rotate(216deg) translate(175px) rotate(-216deg);
+                transform: rotate(216deg) translate(200px) rotate(-216deg);
             }
 
             .gallery-item:nth-child(5) {
-                transform: rotate(288deg) translate(175px) rotate(-288deg);
+                transform: rotate(288deg) translate(200px) rotate(-288deg);
             }
             
             .center-image {
-                width: 150px;
-                height: 150px;
+                width: 160px;
+                height: 160px;
             }
             
             .quote-container {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 bottom: 120px;
             }
             
             .title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
         }
 
         @media screen and (max-width: 480px) {
             .gallery-container {
-                width: 280px;
-                height: 280px;
+                width: 320px;
+                height: 320px;
             }
             
             .gallery-item {
                 width: 100px;
                 height: 100px;
+                margin: -50px 0 0 -50px;
             }
             
             .gallery-item:nth-child(1) {
-                transform: rotate(0deg) translate(140px) rotate(0deg);
+                transform: rotate(0deg) translate(160px) rotate(0deg);
             }
 
             .gallery-item:nth-child(2) {
-                transform: rotate(72deg) translate(140px) rotate(-72deg);
+                transform: rotate(72deg) translate(160px) rotate(-72deg);
             }
 
             .gallery-item:nth-child(3) {
-                transform: rotate(144deg) translate(140px) rotate(-144deg);
+                transform: rotate(144deg) translate(160px) rotate(-144deg);
             }
 
             .gallery-item:nth-child(4) {
-                transform: rotate(216deg) translate(140px) rotate(-216deg);
+                transform: rotate(216deg) translate(160px) rotate(-216deg);
             }
 
             .gallery-item:nth-child(5) {
-                transform: rotate(288deg) translate(140px) rotate(-288deg);
+                transform: rotate(288deg) translate(160px) rotate(-288deg);
             }
             
             .center-image {
-                width: 120px;
-                height: 120px;
+                width: 130px;
+                height: 130px;
             }
             
             .quote-container {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 bottom: 140px;
+                width: 90%;
             }
             
             .title {
-                font-size: 2rem;
-                top: 30px;
+                font-size: 2.2rem;
+                top: 20px;
             }
             
             .controls {
                 bottom: 20px;
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .control-btn {
+                padding: 10px 20px;
+                font-size: 14px;
             }
         }
     </style>
@@ -317,34 +353,34 @@
     <div class="container">
         <div class="hearts-container" id="heartsContainer"></div>
         
-        <h1 class="title" id="mainTitle">Our Beautiful Memories</h1>
+        <h1 class="title">Our Beautiful Memories</h1>
         
         <div class="gallery-container">
             <div class="circular-gallery" id="circularGallery">
                 <div class="gallery-item">
-                    <img src="laugh.jpg" alt="Laughing Together">
+                    <img src="r.jpg" alt="Laughing Together">
                 </div>
                 <div class="gallery-item">
-                    <img src="r.jpg" alt="Romantic Moment">
+                    <img src="i.jpg" alt="Romantic Moment">
                 </div>
                 <div class="gallery-item">
-                    <img src="i.jpg" alt="Intimate Moment">
+                    <img src="y.jpg" alt="Intimate Moment">
                 </div>
                 <div class="gallery-item">
-                    <img src="y.jpg" alt="You and Me">
+                    <img src="a.jpg" alt="You and Me">
                 </div>
                 <div class="gallery-item">
-                    <img src="a.jpg" alt="Adventure Together">
+                    <img src="laugh.jpg" alt="Adventure Together">
                 </div>
             </div>
             
             <div class="center-image">
-                <img src="laugh.jpg" alt="Our Love" id="centerImage">
+                <img src="l.jpg" alt="Our Love" id="centerImage">
             </div>
         </div>
         
         <div class="quote-container" id="quoteContainer">
-            "Every moment with you is a blessing I cherish deeply."
+            "I love the way we laugh together."
         </div>
         
         <div class="controls">
@@ -362,13 +398,12 @@
             const playPauseBtn = document.getElementById('playPauseBtn');
             const nextBtn = document.getElementById('nextBtn');
             const backBtn = document.getElementById('backBtn');
-            const mainTitle = document.getElementById('mainTitle');
             const heartsContainer = document.getElementById('heartsContainer');
             
             // Image data with quotes
             const imageData = [
                 {
-                    src: 'laugh.jpg',
+                    src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
                     quotes: [
                         "Your laughter is my favorite sound.",
                         "I love the way we laugh together.",
@@ -376,7 +411,7 @@
                     ]
                 },
                 {
-                    src: 'r.jpg',
+                    src: 'https://images.unsplash.com/photo-1519764622345-23439dd774f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHB0fGVufDB8fDB8fHww',
                     quotes: [
                         "My heart belongs to you, now and forever.",
                         "You are my today and all of my tomorrows.",
@@ -384,7 +419,7 @@
                     ]
                 },
                 {
-                    src: 'i.jpg',
+                    src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBvcnRyYWl0fGVufDB8fDB8fHww',
                     quotes: [
                         "I never knew what love was until I met you.",
                         "You complete me in ways I never thought possible.",
@@ -392,7 +427,7 @@
                     ]
                 },
                 {
-                    src: 'y.jpg',
+                    src: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D',
                     quotes: [
                         "You are the reason I believe in love.",
                         "My favorite place is inside your hug.",
@@ -400,7 +435,7 @@
                     ]
                 },
                 {
-                    src: 'a.jpg',
+                    src: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBvcnRyYWl0fGVufDB8fDB8fHww',
                     quotes: [
                         "Every adventure with you is a memory I treasure.",
                         "Life with you is the greatest adventure.",
@@ -416,13 +451,6 @@
             
             // Initialize the page with animations
             function initPage() {
-                // Animate title
-                setTimeout(() => {
-                    mainTitle.style.opacity = '1';
-                    mainTitle.style.transform = 'translateY(0)';
-                    mainTitle.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
-                }, 500);
-                
                 // Start quote rotation
                 startQuoteRotation();
                 
@@ -452,11 +480,14 @@
             
             // Create floating hearts animation
             function createHearts() {
-                for (let i = 0; i < 15; i++) {
+                for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
                         addFloatingHeart();
-                    }, i * 300);
+                    }, i * 400);
                 }
+                
+                // Continue generating hearts
+                setInterval(addFloatingHeart, 3000);
             }
             
             function addFloatingHeart() {
@@ -474,17 +505,17 @@
                     { 
                         top: '100%', 
                         opacity: 0,
-                        transform: 'rotate(0deg)'
+                        transform: 'rotate(0deg) scale(0.5)'
                     },
                     { 
                         top: `${Math.random() * 80}%`, 
                         opacity: 0.8,
-                        transform: 'rotate(360deg)'
+                        transform: 'rotate(360deg) scale(1.2)'
                     },
                     { 
                         top: '-10%', 
                         opacity: 0,
-                        transform: 'rotate(720deg)'
+                        transform: 'rotate(720deg) scale(0.5)'
                     }
                 ], {
                     duration: animationDuration * 1000,
