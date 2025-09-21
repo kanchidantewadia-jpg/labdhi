@@ -1,1 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrate Our Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a0a2e 0%, #3a0a4e 50%, #5a0a66 100%);
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .circular-gallery {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform-style: preserve-3d;
+            animation: rotateGallery 30s infinite linear;
+        }
+
+        .circular-gallery.paused {
+            animation-play-state: paused;
+        }
+
+        .gallery-item {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);
+            transition: all 0.5s ease;
+            transform-origin: center;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 35px rgba(255, 105, 180, 0.9);
+            z-index: 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:nth-child(1) {
+            transform: rotate(0deg) translate(250px) rotate(0deg);
+        }
+
+        .gallery-item:nth-child(2) {
+            transform: rotate(72deg) translate(250px) rotate(-72deg);
+        }
+
+        .gallery-item:nth-child(3) {
+            transform: rotate(144deg) translate(250px) rotate(-144deg);
+        }
+
+        .gallery-item:nth-child(4) {
+            transform: rotate(216deg) translate(250px) rotate(-216deg);
+        }
+
+        .gallery-item:nth-child(5) {
+            transform: rotate(288deg) translate(250px) rotate(-288deg);
+        }
+
+        .center-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(255, 20, 147, 0.8);
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            z-index: 5;
+        }
+
+        .center-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quote-container {
+            position: absolute;
+            bottom: 100px;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.8);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .control-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff3e8d, #ff2d69);
+            color: white;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 45, 105, 0.5),
+                        0 0 30px rgba(255, 45, 105, 0.3),
+                        inset 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 25px rgba(255, 45, 105, 0.7),
+                        0 0 40px rgba(255, 45, 105, 0.5),
+                        inset 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .title {
+            position: absolute;
+            top: 50px;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            text-shadow: 0 0 15px rgba(255, 20, 147, 0.8);
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .hearts-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0;
+        }
+
+        @keyframes rotateGallery {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .gallery-container {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .gallery-item {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .gallery-item:nth-child(1) {
+                transform: rotate(0deg) translate(175px) rotate(0deg);
+            }
+
+            .gallery-item:nth-child(2) {
+                transform: rotate(72deg) translate(175px) rotate(-72deg);
+            }
+
+            .gallery-item:nth-child(3) {
+                transform: rotate(144deg) translate(175px) rotate(-144deg);
+            }
+
+            .gallery-item:nth-child(4) {
+                transform: rotate(216deg) translate(175px) rotate(-216deg);
+            }
+
+            .gallery-item:nth-child(5) {
+                transform: rotate(288deg) translate(175px) rotate(-288deg);
+            }
+            
+            .center-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .quote-container {
+                font-size: 1.5rem;
+                bottom: 120px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .gallery-container {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .gallery-item {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .gallery-item:nth-child(1) {
+                transform: rotate(0deg) translate(140px) rotate(0deg);
+            }
+
+            .gallery-item:nth-child(2) {
+                transform: rotate(72deg) translate(140px) rotate(-72deg);
+            }
+
+            .gallery-item:nth-child(3) {
+                transform: rotate(144deg) translate(140px) rotate(-144deg);
+            }
+
+            .gallery-item:nth-child(4) {
+                transform: rotate(216deg) translate(140px) rotate(-216deg);
+            }
+
+            .gallery-item:nth-child(5) {
+                transform: rotate(288deg) translate(140px) rotate(-288deg);
+            }
+            
+            .center-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .quote-container {
+                font-size: 1.2rem;
+                bottom: 140px;
+            }
+            
+            .title {
+                font-size: 2rem;
+                top: 30px;
+            }
+            
+            .controls {
+                bottom: 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts-container" id="heartsContainer"></div>
+        
+        <h1 class="title" id="mainTitle">Our Beautiful Memories</h1>
+        
+        <div class="gallery-container">
+            <div class="circular-gallery" id="circularGallery">
+                <div class="gallery-item">
+                    <img src="laugh.jpg" alt="Laughing Together">
+                </div>
+                <div class="gallery-item">
+                    <img src="r.jpg" alt="Romantic Moment">
+                </div>
+                <div class="gallery-item">
+                    <img src="i.jpg" alt="Intimate Moment">
+                </div>
+                <div class="gallery-item">
+                    <img src="y.jpg" alt="You and Me">
+                </div>
+                <div class="gallery-item">
+                    <img src="a.jpg" alt="Adventure Together">
+                </div>
+            </div>
+            
+            <div class="center-image">
+                <img src="laugh.jpg" alt="Our Love" id="centerImage">
+            </div>
+        </div>
+        
+        <div class="quote-container" id="quoteContainer">
+            "Every moment with you is a blessing I cherish deeply."
+        </div>
+        
+        <div class="controls">
+            <button class="control-btn" id="playPauseBtn">Pause</button>
+            <button class="control-btn" id="nextBtn">Next Quote</button>
+            <button class="control-btn" id="backBtn">Back to Birthday</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const circularGallery = document.getElementById('circularGallery');
+            const centerImage = document.getElementById('centerImage');
+            const quoteContainer = document.getElementById('quoteContainer');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const backBtn = document.getElementById('backBtn');
+            const mainTitle = document.getElementById('mainTitle');
+            const heartsContainer = document.getElementById('heartsContainer');
+            
+            // Image data with quotes
+            const imageData = [
+                {
+                    src: 'laugh.jpg',
+                    quotes: [
+                        "Your laughter is my favorite sound.",
+                        "I love the way we laugh together.",
+                        "Every day with you is filled with joy and laughter."
+                    ]
+                },
+                {
+                    src: 'r.jpg',
+                    quotes: [
+                        "My heart belongs to you, now and forever.",
+                        "You are my today and all of my tomorrows.",
+                        "In your arms, I've found my paradise."
+                    ]
+                },
+                {
+                    src: 'i.jpg',
+                    quotes: [
+                        "I never knew what love was until I met you.",
+                        "You complete me in ways I never thought possible.",
+                        "My love for you grows stronger with each passing day."
+                    ]
+                },
+                {
+                    src: 'y.jpg',
+                    quotes: [
+                        "You are the reason I believe in love.",
+                        "My favorite place is inside your hug.",
+                        "You are my sunshine on the cloudiest days."
+                    ]
+                },
+                {
+                    src: 'a.jpg',
+                    quotes: [
+                        "Every adventure with you is a memory I treasure.",
+                        "Life with you is the greatest adventure.",
+                        "I can't wait to create more memories with you."
+                    ]
+                }
+            ];
+            
+            let currentImageIndex = 0;
+            let currentQuoteIndex = 0;
+            let isPlaying = true;
+            let quoteInterval;
+            
+            // Initialize the page with animations
+            function initPage() {
+                // Animate title
+                setTimeout(() => {
+                    mainTitle.style.opacity = '1';
+                    mainTitle.style.transform = 'translateY(0)';
+                    mainTitle.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
+                }, 500);
+                
+                // Start quote rotation
+                startQuoteRotation();
+                
+                // Create floating hearts
+                createHearts();
+            }
+            
+            // Start quote rotation
+            function startQuoteRotation() {
+                updateQuote();
+                
+                quoteInterval = setInterval(() => {
+                    currentQuoteIndex = (currentQuoteIndex + 1) % imageData[currentImageIndex].quotes.length;
+                    updateQuote();
+                }, 5000);
+            }
+            
+            // Update the displayed quote
+            function updateQuote() {
+                quoteContainer.style.opacity = '0';
+                
+                setTimeout(() => {
+                    quoteContainer.textContent = `"${imageData[currentImageIndex].quotes[currentQuoteIndex]}"`;
+                    quoteContainer.style.opacity = '1';
+                }, 500);
+            }
+            
+            // Create floating hearts animation
+            function createHearts() {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        addFloatingHeart();
+                    }, i * 300);
+                }
+            }
+            
+            function addFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+                heartsContainer.appendChild(heart);
+                
+                // Animate heart
+                const animationDuration = Math.random() * 5 + 5;
+                
+                heart.animate([
+                    { 
+                        top: '100%', 
+                        opacity: 0,
+                        transform: 'rotate(0deg)'
+                    },
+                    { 
+                        top: `${Math.random() * 80}%`, 
+                        opacity: 0.8,
+                        transform: 'rotate(360deg)'
+                    },
+                    { 
+                        top: '-10%', 
+                        opacity: 0,
+                        transform: 'rotate(720deg)'
+                    }
+                ], {
+                    duration: animationDuration * 1000,
+                    easing: 'cubic-bezier(0.2, 0, 0.8, 1)'
+                });
+                
+                // Remove heart after animation completes
+                setTimeout(() => {
+                    heart.remove();
+                }, animationDuration * 1000);
+            }
+            
+            // Update center image when gallery item is clicked
+            document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    currentQuoteIndex = 0;
+                    centerImage.src = imageData[index].src;
+                    updateQuote();
+                    
+                    // Highlight the selected image
+                    document.querySelectorAll('.gallery-item').forEach(item => {
+                        item.style.boxShadow = '0 0 25px rgba(255, 105, 180, 0.6)';
+                    });
+                    item.style.boxShadow = '0 0 35px rgba(255, 20, 147, 0.9)';
+                });
+            });
+            
+            // Play/Pause button functionality
+            playPauseBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                
+                if (isPlaying) {
+                    circularGallery.classList.remove('paused');
+                    playPauseBtn.textContent = 'Pause';
+                    startQuoteRotation();
+                } else {
+                    circularGallery.classList.add('paused');
+                    playPauseBtn.textContent = 'Play';
+                    clearInterval(quoteInterval);
+                }
+            });
+            
+            // Next quote button functionality
+            nextBtn.addEventListener('click', () => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % imageData[currentImageIndex].quotes.length;
+                updateQuote();
+                
+                // Reset the interval
+                clearInterval(quoteInterval);
+                if (isPlaying) {
+                    startQuoteRotation();
+                }
+            });
+            
+            // Back button functionality
+            backBtn.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+            
+            // Initialize the page
+            initPage();
+        });
+    </script>
+</body>
+</html>
